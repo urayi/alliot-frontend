@@ -1,1 +1,9 @@
-.RequirementCreator {}
+.RequirementCreator {
+  display: flex;
+  flex-direction: column;
+  margin: 24px;
+}
+
+.form {
+ padding: 24px;
+}
