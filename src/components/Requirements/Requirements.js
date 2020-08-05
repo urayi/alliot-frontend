@@ -1,14 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import styles from './Requirements.module.css';
+import Typography from '@material-ui/core/Typography';
+import RequirementInfo from '../RequirementInfo/RequirementInfo';
+import axios from 'axios';
 
-const Requirements = () => (
-  <div className={styles.Requirements} data-testid="Requirements">
-    Requirements Component
-  </div>
-);
+const Requirements = (props) => {
 
-Requirements.propTypes = {};
+  const [loading, setLoadingState] = useState(false); 
+  const [requeriments, setRequerimentsState] = useState([]);
+
+  return (
+    <div className={styles.Requirements} data-testid="Requirements">
+      <Typography component="h1" variant="h6">Requerimientos</Typography>
+      {props.requirements ? props.requirements.map((requirement, key) => {
+        return (
+          <RequirementInfo requirement={requirement} />
+        )
+      }) : <h2 data-testid='no-data'>No se Encontraron Requerimientos</h2>}
+    </div>
+  );
+}
 
 Requirements.defaultProps = {};
 
