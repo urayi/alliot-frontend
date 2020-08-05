@@ -6,6 +6,8 @@
 
 .avatar {
   margin: auto;
+  min-width: 80px;
+  min-height: 80px;
 }
 
 .title {

@@ -10,43 +10,38 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import isotipo from '../../isotipo.png';
-import axios from 'axios';
+import AuthService from '../../services/auth.service';
 
-const SignUp = () => {
+const SignUp = (props) => {
 
   const [loading, setLoadingState] = useState(false);
   const [name, setNameState] = useState(); 
   const [email, setEmailState] = useState();
   const [password, setPasswordState] = useState();
 
-  const signUp = () => {
+  const signUp = (event) => {
+    event.preventDefault();
     setLoadingState(true);
-    const url = `/signup`;
-    const body = {
-      user: {
-        name: name,
-        email: email,
-        password: password
+    AuthService.signUp(name, email, password).then(
+      (response) => {
+        setLoadingState(false);
+        console.log(response);
+        props.history.push("/login");
+        window.location.reload();
+      },
+      (error) => {
+        setLoadingState(false);
+        console.log(error);
       }
-    };
-    axios.post(url, body).then(response => {
-      setLoadingState(false);
-      setNameState(undefined)
-      setEmailState(undefined);
-      setPasswordState(undefined);
-      console.log(response);
-    }).catch(e => {
-      setLoadingState(false);
-      console.log(e);
-    });
+    );
+    return false;
   }
-
 
   return (
     <Container maxWidth="xs">
       <div className={styles.SignUp} data-testid="SignUp">
         <Paper>
-          <form className={styles.form} noValidate>
+          <form className={styles.form} noValidate onSubmit={(event) => signUp(event)}>
             <Grid container spacing={2} alignItems="center">
               <Grid item xs={12}>
                 <Avatar className={styles.avatar} src={isotipo} />
@@ -91,12 +86,11 @@ const SignUp = () => {
               </Grid>
               <Grid item xs={12}>
                 <Button
-                  type="button"
+                  type="submit"
                   fullWidth
                   variant="contained"
                   color="primary"
                   className={styles.submit}
-                  onClick={() => signUp()}
                 >
                   Registrar
                 </Button>

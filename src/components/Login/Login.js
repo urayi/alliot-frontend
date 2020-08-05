@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
 import styles from './Login.module.css';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -11,41 +10,37 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import isotipo from '../../isotipo.png';
-import axios from 'axios';
+import AuthService from '../../services/auth.service';
 
-const Login = () => {
+const Login = (props) => {
 
   const [loading, setLoadingState] = useState(false); 
   const [email, setEmailState] = useState();
   const [password, setPasswordState] = useState();
 
-  const login = () => {
+  const login = (event) => {
+    event.preventDefault();
     setLoadingState(true);
-    const url = `/login`;
-    const body = {
-      user: {
-        email: email,
-        password: password
+    AuthService.login(email, password).then(
+      (response) => {
+        setLoadingState(false);
+        console.log(response);
+        props.history.push("/");
+        window.location.reload();
+      },
+      (error) => {
+        setLoadingState(false);
+        console.log(error);
       }
-    };
-    axios.post(url, body).then(response => {
-      setLoadingState(false);
-      setEmailState(undefined);
-      setPasswordState(undefined);
-      const token = response.headers.authorization;
-      localStorage.setItem('token', token);
-      console.log(response);
-    }).catch(e => {
-      setLoadingState(false);
-      console.log(e);
-    });
+    );
+    return false;
   }
 
   return (
     <Container maxWidth="xs">
       <div className={styles.Login} data-testid="Login">
         <Paper>
-          <form className={styles.form} noValidate>
+          <form className={styles.form} noValidate onSubmit={(event) => login(event)}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Avatar className={styles.avatar} src={isotipo}></Avatar>
@@ -79,12 +74,12 @@ const Login = () => {
               </Grid>
               <Grid item xs={12}>
                 <Button
-                  type="button"
+                  type="submit"
                   fullWidth
                   variant="contained"
                   color="primary"
                   className={styles.submit}
-                  onClick={() => login()}
+                  
                 >
                   Iniciar Sesión
                 </Button>
