@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Login.module.css';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -10,26 +10,35 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import isotipo from '../../isotipo.png';
+
 import AuthService from '../../services/auth.service';
 
 const Login = (props) => {
 
-  const [loading, setLoadingState] = useState(false); 
-  const [email, setEmailState] = useState();
-  const [password, setPasswordState] = useState();
+  const [loading, setLoading] = useState(false); 
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
+  useEffect(() => {
+    const currentToken = AuthService.getCurrentToken();
+    if (currentToken) {
+      props.history.push('/new');
+      window.location.reload();
+    }
+  }, []);
 
   const login = (event) => {
     event.preventDefault();
-    setLoadingState(true);
+    setLoading(true);
     AuthService.login(email, password).then(
       (response) => {
-        setLoadingState(false);
+        setLoading(false);
         console.log(response);
-        props.history.push("/");
+        props.history.push("/new");
         window.location.reload();
       },
       (error) => {
-        setLoadingState(false);
+        setLoading(false);
         console.log(error);
       }
     );
@@ -57,7 +66,7 @@ const Login = (props) => {
                   name="email"
                   autoComplete="email"
                   autoFocus
-                  onChange={e => setEmailState(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -69,7 +78,7 @@ const Login = (props) => {
                   label="Password"
                   type="password"
                   autoComplete="current-password"
-                  onChange={e => setPasswordState(e.target.value)}
+                  onChange={e => setPassword(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>

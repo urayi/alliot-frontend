@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './SignUp.module.css';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -10,27 +10,36 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import isotipo from '../../isotipo.png';
+
 import AuthService from '../../services/auth.service';
 
 const SignUp = (props) => {
 
-  const [loading, setLoadingState] = useState(false);
-  const [name, setNameState] = useState(); 
-  const [email, setEmailState] = useState();
-  const [password, setPasswordState] = useState();
+  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState(); 
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
+  useEffect(() => {
+    const currentToken = AuthService.getCurrentToken();
+    if (currentToken) {
+      props.history.push('/new');
+      window.location.reload();
+    }
+  }, []);
 
   const signUp = (event) => {
     event.preventDefault();
-    setLoadingState(true);
+    setLoading(true);
     AuthService.signUp(name, email, password).then(
       (response) => {
-        setLoadingState(false);
+        setLoading(false);
         console.log(response);
         props.history.push("/login");
-        window.location.reload();
+        // window.location.reload();
       },
       (error) => {
-        setLoadingState(false);
+        setLoading(false);
         console.log(error);
       }
     );
@@ -58,7 +67,7 @@ const SignUp = (props) => {
                   fullWidth
                   label="Nombre"
                   autoFocus
-                  onChange={e => setNameState(e.target.value)}
+                  onChange={e => setName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -69,7 +78,7 @@ const SignUp = (props) => {
                   label="Correo Electrónico"
                   name="email"
                   autoComplete="email"
-                  onChange={e => setEmailState(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -81,7 +90,7 @@ const SignUp = (props) => {
                   label="Password"
                   type="password"
                   autoComplete="current-password"
-                  onChange={e => setPasswordState(e.target.value)}
+                  onChange={e => setPassword(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
