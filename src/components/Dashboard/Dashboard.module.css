@@ -1,1 +1,21 @@
-.Dashboard {}
+.Dashboard {
+  flex-grow: 1;
+}
+
+.appBar img { 
+  max-height: 70px;
+  padding: 20px;
+}
+
+.menuButton {
+  margin-right: 16px;
+}
+
+.title {
+  flex-grow: 1;
+}
+
+.name {
+  padding: 24px;
+  text-transform: capitalize;
+}

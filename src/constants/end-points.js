@@ -9,3 +9,7 @@ export default EndPoints = {
   getCommentsByRequirements: '/comments/requirement/:requirement_id',
   voting: 'votes/requirement/:requirement_id'
 }
+
+export default {
+  EndPoints
+}

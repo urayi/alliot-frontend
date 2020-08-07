@@ -1,1 +1,13 @@
-.Requirements {}
+.Requirements {
+  display: flex;
+  flex-direction: column;
+  margin: 24px;
+}
+
+.listContainer, .container {
+  padding: 24px;
+}
+
+.container h1 {
+  margin: 0 0 32px 32px;
+}
