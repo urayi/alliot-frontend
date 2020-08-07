@@ -1,26 +1,21 @@
-FROM node:12-alpine
+# Building de la aplicación
+FROM tiangolo/node-frontend:10 as build-stage
 
-# Crear Directorio de la APP
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Instalación de dependencias
-COPY package*.json ./
+COPY package*.json /app/
+
 RUN npm install
 
-# Copia archivos
-COPY . .
-# Build para producción
-RUN npm run-script build
+COPY ./ /app/
 
-RUN npm i serve --global
+RUN npm run build
 
-# Testing
-# RUN npm test 
-
-# Borrado de archivos innecesarios
-# RUN rm -rf README.md generate-react-cli.json package-lock.json public src yarn.lock
+# Copia y despliegue en el servidor
+FROM nginx:1.15
 
 EXPOSE 5000
 
-# Inicia servidor de la APP
-CMD [ "node", "server.js" ]
+COPY --from=build-stage /app/build/ /usr/share/nginx/html
+
+COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf
