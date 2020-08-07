@@ -5,12 +5,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
 import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
 import HowToVoteIcon from '@material-ui/icons/HowToVote';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import RequirementInfo from '../RequirementInfo/RequirementInfo';
 
 import RequirementService from '../../services/requirement.service';
 import AuthService from "../../services/auth.service";
+import { Divider, IconButton } from '@material-ui/core';
 
 const Requirements = (props) => {
 
@@ -47,6 +46,16 @@ const Requirements = (props) => {
         loading ? <CircularProgress /> :
         <Paper className={styles.container}>
           <Typography component="h1" variant="h6">Requerimientos</Typography>
+          <IconButton onClick={()=>{setOrderList(
+                orderList === 'title DESC' ? orderList === 'title ASC' ? 'title DESC' : 'title ASC' : 'title DESC'
+              )}}>
+            <SortByAlphaIcon/>
+          </IconButton>
+          <IconButton onClick={()=>{setOrderList(
+                orderList === 'rank DESC' ? orderList === 'rank ASC' ? 'rank DESC' : 'rank ASC' : 'rank DESC'
+              )}}>
+            <HowToVoteIcon/>
+          </IconButton>
           <Paper variant="outlined" className={styles.listContainer}>
             {
               requirements && requirements.length > 0 && !loading ? 

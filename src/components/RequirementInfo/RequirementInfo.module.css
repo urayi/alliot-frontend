@@ -1,1 +1,25 @@
 .RequirementInfo {}
+
+.title {
+  flex-grow: 1;
+}
+
+.positive {
+  color: green;
+}
+
+.negative {
+  color: red;
+}
+
+.noVote {
+  color: grey;
+}
+
+.accordion {
+  margin: 8px 0;
+}
+
+.rank {
+  padding-right: 16px;
+}

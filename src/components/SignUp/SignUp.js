@@ -23,7 +23,7 @@ const SignUp = (props) => {
   useEffect(() => {
     const currentToken = AuthService.getCurrentToken();
     if (currentToken) {
-      props.history.push('/new');
+      props.history.push('/');
       window.location.reload();
     }
   }, []);

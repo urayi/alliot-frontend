@@ -12,8 +12,8 @@ const getComments = (requirementId) => {
 
 const postComment = (comment, requirementId) => {
   const url = `/api/v1/comments`;
-  const body = {
-    comment: JSON.stringify(convertToRaw(comment)),
+  const body = {  
+    comment: JSON.stringify(convertToRaw(comment.getCurrentContent())),
     requeriment_id: requirementId
   };
   return axios

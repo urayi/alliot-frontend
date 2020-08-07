@@ -22,7 +22,7 @@ const Login = (props) => {
   useEffect(() => {
     const currentToken = AuthService.getCurrentToken();
     if (currentToken) {
-      props.history.push('/new');
+      props.history.push('/');
       window.location.reload();
     }
   }, []);
@@ -34,7 +34,7 @@ const Login = (props) => {
       (response) => {
         setLoading(false);
         console.log(response);
-        props.history.push("/new");
+        props.history.push('/');
         window.location.reload();
       },
       (error) => {

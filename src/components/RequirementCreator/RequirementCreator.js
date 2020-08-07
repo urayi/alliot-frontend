@@ -16,7 +16,7 @@ const RequirementCreator = (props) => {
 
   const [loading, setLoadingState] = useState(false);
   const [title, setTitleState] = useState('');
-  const [content, setContentState] = useState([])
+  const [content, setContentState] = useState([]);
 
   const defaultTheme = createMuiTheme();
 
@@ -42,7 +42,7 @@ const RequirementCreator = (props) => {
         }
       }
     }
-  })
+  });
 
   const createRequirement = () => {
     setLoadingState(true);

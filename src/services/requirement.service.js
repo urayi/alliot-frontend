@@ -1,7 +1,7 @@
 import axios from "axios";
 import { convertToRaw } from 'draft-js';
 
-const getRequirements = (ordenList) => { // falta incluir orden
+const getRequirements = (ordenList) => {
   const url = `/api/v1/requirements`;
   return axios
     .get(url, { params: { order_list: ordenList} })
@@ -10,7 +10,7 @@ const getRequirements = (ordenList) => { // falta incluir orden
     });
 }
 
-const getRequirement = (id) => { // falta incluir orden
+const getRequirement = (id) => {
   const url = `/api/v1/requirements/${id}`;
   return axios
     .get(url)
@@ -31,11 +31,6 @@ const postRequirement = (requirement) => {
       return response.data;
     });
 }
-
-/* setRequirementsId(response.data.id); // Id del requerimiento
-const contentState = convertFromRaw(JSON.parse(response.data.content));
-setTimeout(() => setEditorState(EditorState.createWithContent(contentState)), 1000)//Contenido del Requerimiento
-// setTitleState(response.data.title); // Título del Requerimiento */
 
 
 export default {
