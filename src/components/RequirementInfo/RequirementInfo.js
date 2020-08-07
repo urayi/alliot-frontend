@@ -16,7 +16,7 @@ import RequirementService from '../../services/requirement.service';
 import Comments from '../Comments/Comments';
 
 const RequirementInfo = (props) => {
-  const [expanded, setExpanded] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [vote, setVoteState] = useState(null);
   const [requirement, setRequirement] = useState(props.requirement);

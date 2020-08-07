@@ -37,6 +37,7 @@ const CommentCreator = (props) => {
 
   useEffect(() => {
     setLoading(true);
+    setComment([]);
     const currentToken = AuthService.getCurrentToken();
     if (!currentToken) {
       props.history.push('/login');
@@ -47,9 +48,6 @@ const CommentCreator = (props) => {
 
   const createComment = () => {
     setLoading(true);
-    const comment = {
-      comment: comment
-    };
     CommentService.postComment(comment, props.requirement.id).then(
       (response) => {
         setLoading(false);
@@ -75,7 +73,7 @@ const CommentCreator = (props) => {
       (response) => {
         setLoading(false);
         console.log(response);
-        setComment(response);
+        setComments(response);
       },
       (error) => {
         setLoading(false);
@@ -128,7 +126,7 @@ const CommentCreator = (props) => {
                   comments.map((item, key) => {
                     console.log(key, item)
                     return (
-                      <CommentInfo requirement={props.requirement} comments={comment} />
+                      <CommentInfo key={key} comment={item.comment} />
                     )
                   }) :
                 <Typography variant="subtitle2" className={styles.noData} data-testid='no-data'>
