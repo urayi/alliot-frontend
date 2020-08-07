@@ -9,18 +9,16 @@ Para levantar el sistema de debe ejecutar
 $ npm install && npm start
 ```
 
-Para ejecutar los test unitarios y verificar la covertura
-```sh
-$ npm test -- --coverage
-```
 
 ### Docker
-
-
-
-### API
-
-Para consultar el servicio se usa el suguiente comando
 ```sh
-$ curl --request GET '{API_URL}/api/.....'
+$ docker build -t alliot/frontend .
+$ docker run --rm -it  -p 5000:5000/tcp alliot/frontend:latest
+```
+
+### APP
+
+Para consultar la APP  en local
+```sh
+localhost:3000 (puede variar si se corre el back en paralelo)
 ```
