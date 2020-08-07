@@ -14,7 +14,7 @@ const postComment = (comment, requirementId) => {
   const url = `/api/v1/comments`;
   const body = {  
     comment: JSON.stringify(convertToRaw(comment.getCurrentContent())),
-    requeriment_id: requirementId
+    requirement_id: requirementId
   };
   return axios
     .post(url, body)

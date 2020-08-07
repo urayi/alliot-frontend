@@ -49,6 +49,13 @@ const RequirementInfo = (props) => {
       (error) => {
         setLoading(false);
         console.log(error);
+        if(JSON.stringify(error).includes('401')) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          props.history.push('/login');
+          window.location.reload();
+          return false;
+        }
       }
     );
   }
@@ -63,6 +70,13 @@ const RequirementInfo = (props) => {
       (error) => {
         setLoading(false);
         console.log(error);
+        if(JSON.stringify(error).includes('401')) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          props.history.push('/login');
+          window.location.reload();
+          return false;
+        }
       }
     );
   };

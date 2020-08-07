@@ -58,7 +58,14 @@ const RequirementCreator = (props) => {
       },
       (error) => {
         setLoadingState(false);
-        console.log(error);
+        console.log(error, error.response, error.status);
+        if(JSON.stringify(error).includes('401')) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          props.history.push('/login');
+          window.location.reload();
+          return false;
+        }
       }
     );
   }

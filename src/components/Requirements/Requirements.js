@@ -36,6 +36,13 @@ const Requirements = (props) => {
         setLoading(false);
         setOrderList(null);
         setRequirements([]);
+        if(JSON.stringify(error).includes('401')) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          props.history.push('/login');
+          window.location.reload();
+          return false;
+        }
       });
   }, [orderList, props.history]);
 
